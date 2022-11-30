@@ -1,8 +1,8 @@
 {
-    "name": "my-bot",
+    "name": "md-votebot",
     "version": "1.0.0",
-    "author": "Kevin Novak",
-    "description": "A discord.js bot template written with TypeScript",
+    "author": "0xDon",
+    "description": "MonkeDAO Votebot",
     "license": "MIT",
     "private": true,
     "engines": {
@@ -47,6 +47,8 @@
         "luxon": "3.1.0",
         "node-fetch": "3.2.10",
         "node-schedule": "2.1.0",
+        "pg": "^8.8.0",
+        "pg-promise": "^10.15.4",
         "pino": "8.7.0",
         "pino-pretty": "9.1.1",
         "pm2": "^5.2.2",
@@ -58,6 +60,7 @@
         "@types/luxon": "3.1.0",
         "@types/node": "^18.11.9",
         "@types/node-schedule": "2.1.0",
+        "@types/pg": "^8.6.5",
         "@types/remove-markdown": "0.3.1",
         "@typescript-eslint/eslint-plugin": "^5.42.0",
         "@typescript-eslint/parser": "^5.42.0",

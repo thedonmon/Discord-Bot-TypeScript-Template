@@ -1,5 +1,5 @@
 import { REST } from '@discordjs/rest';
-import { Options, Partials } from 'discord.js';
+import { GatewayIntentBits, Options, Partials } from 'discord.js';
 import { createRequire } from 'node:module';
 
 import { Button } from './buttons/index.js';
@@ -12,6 +12,7 @@ import {
 } from './commands/index.js';
 import { ViewDateSent } from './commands/message/index.js';
 import { ViewDateJoined } from './commands/user/index.js';
+import { getDB } from './db_pool/db_pool.js';
 import {
     ButtonHandler,
     CommandHandler,
@@ -36,14 +37,18 @@ import { Trigger } from './triggers/index.js';
 const require = createRequire(import.meta.url);
 let Config = require('../config/config.json');
 let Logs = require('../lang/logs.json');
-
+const { db } = getDB();
+const intents = Object.values(GatewayIntentBits) as GatewayIntentBits[];
+console.log(intents);
 async function start(): Promise<void> {
     // Services
     let eventDataService = new EventDataService();
-
+    if (db.$cn.toString() === 'undefined') {
+        throw new Error('Database connection is undefined');
+    }
     // Client
     let client = new CustomClient({
-        intents: Config.client.intents,
+        intents: intents,
         partials: (Config.client.partials as string[]).map(partial => Partials[partial]),
         makeCache: Options.cacheWithLimits({
             // Keep default caching behavior
