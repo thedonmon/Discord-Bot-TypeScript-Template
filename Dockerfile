@@ -7,13 +7,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install packages
-RUN npm install
+RUN yarn install
 
 # Copy the app code
 COPY . .
 
 # Build the project
-RUN npm run build
+RUN yarn build
 
 # Expose ports
 EXPOSE 8080

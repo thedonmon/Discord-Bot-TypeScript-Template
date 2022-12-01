@@ -12,7 +12,7 @@ import {
 } from './commands/index.js';
 import { ViewDateSent } from './commands/message/index.js';
 import { ViewDateJoined } from './commands/user/index.js';
-import { getDB } from './db_pool/db_pool.js';
+import { getDB } from './db_pool/mongo.js';
 import {
     ButtonHandler,
     CommandHandler,
@@ -39,12 +39,11 @@ let Config = require('../config/config.json');
 let Logs = require('../lang/logs.json');
 const { db } = getDB();
 const intents = Object.values(GatewayIntentBits) as GatewayIntentBits[];
-console.log(intents);
 async function start(): Promise<void> {
     // Services
     let eventDataService = new EventDataService();
-    if (db.$cn.toString() === 'undefined') {
-        throw new Error('Database connection is undefined');
+    if (db.readyState === 0) {
+        throw new Error('Database connection is disconnected');
     }
     // Client
     let client = new CustomClient({
